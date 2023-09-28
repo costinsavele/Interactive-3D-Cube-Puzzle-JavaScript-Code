@@ -1,7 +1,6 @@
 var colors = ["blue", "green", "white", "yellow", "orange", "red"],
   pieces = document.getElementsByClassName("piece")
 
-// Returns j-th adjacent face of i-th face
 function mx(i, j) {
   return (
     ([2, 4, 3, 5][j % 4 | 0] +
@@ -15,7 +14,6 @@ function getAxis(face) {
   return String.fromCharCode("X".charCodeAt(0) + face / 2) // X, Y or Z
 }
 
-// Moves each of 26 pieces to their places, assigns IDs and attaches stickers
 function assembleCube() {
   function moveto(face) {
     id = id + (1 << face)
@@ -44,7 +42,6 @@ function getPieceBy(face, index, corner) {
   )
 }
 
-// Swaps stickers of the face (by clockwise) stated times, thereby rotates the face
 function swapPieces(face, times) {
   for (var i = 0; i < 6 * times; i++) {
     var piece1 = getPieceBy(face, i / 2, i % 2),
@@ -61,7 +58,6 @@ function swapPieces(face, times) {
   }
 }
 
-// Animates rotation of the face (by clockwise if cw), and then swaps stickers
 function animateRotation(face, cw, currentTime) {
   var k = 0.3 * ((face % 2) * 2 - 1) * (2 * cw - 1),
     cubes = Array(9)
@@ -90,7 +86,6 @@ function animateRotation(face, cw, currentTime) {
   })()
 }
 
-// Events
 function mousedown(md_e) {
   var startXY = pivot.style.transform.match(/-?\d+\.?\d*/g).map(Number),
     element = md_e.target.closest(".element"),
@@ -135,6 +130,5 @@ document.ondragstart = function () {
 
 window.addEventListener("load", assembleCube)
 
-// Replace 'scene' with the ID of your desired scene element
 var scene = document.getElementById("scene")
 scene.addEventListener("mousedown", mousedown)
